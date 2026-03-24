@@ -1,0 +1,13 @@
+import type { NextFunction, Request, Response } from "express";
+
+type AsyncHandler = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<void | Response<any, Record<string, any>>>;
+
+const catchAsync =
+  (fn: AsyncHandler) => (req: Request, res: Response, next: NextFunction) =>
+    fn(req, res, next).catch(next);
+
+export default catchAsync;
