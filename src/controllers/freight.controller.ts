@@ -267,7 +267,7 @@ export const respondToCounter = async (
 
   if (!request) return next(new AppError("Freight request not found", 404));
 
-  if (request.customer !== req.user?._id)
+  if (request.customer._id.toString() !== req.user._id.toString())
     return next(
       new AppError("You are not allowed to respond to this counter", 403),
     );
